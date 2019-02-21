@@ -19,6 +19,10 @@ import (
 	"strings"
 )
 
+const (
+	MAX_FORM_PARSE_MEM = 100*1024*1024 // Hold 100 mB of parsed multiform in mem before migrating to disk
+)
+
 //implements Serializable
 type Project struct {
 	Items    map[string][]Item `json:"items" yaml"items"`
@@ -858,6 +862,11 @@ func CreateTasks(project Project) {
 
 // server side create form validation
 func formValidation(w http.ResponseWriter, r *http.Request) error {
+	err := r.ParseMultipartForm(MAX_FORM_PARSE_MEM)
+	if err != nil {
+		w.Write([]byte("Body not in readable form format"))
+		return err
+	}
 	if r.FormValue("project_name") == "" {
 		w.Write([]byte("Please create a project name."))
 		return errors.New("invalid form: no project name")
