@@ -1,0 +1,9 @@
+- name: Bad
+  toolType: switch
+  tagText: b
+- name: Good
+  toolType: switch
+  tagText: g
+- name: NotReal
+  toolType: switch
+  tagText: nr
