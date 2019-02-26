@@ -1,8 +1,0 @@
-.git
-.gitignore
-bin
-data
-app/dist
-node_modules
-LICENSE
-VERSION
